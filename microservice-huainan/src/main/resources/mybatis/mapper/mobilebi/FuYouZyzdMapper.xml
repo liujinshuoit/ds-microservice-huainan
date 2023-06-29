@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.das.consultation.mapper.mobilebi.FuYouZyzdMapper">
+
+    <resultMap type="com.das.consultation.entities.vo.mobilebi.FuYouZyzdVO" id="FuYouZyzdMap">
+        <result property="jckh" column="JCKH" jdbcType="VARCHAR"/>
+        <result property="yfxm" column="YFXM" jdbcType="VARCHAR"/>
+        <result property="yfcsrq" column="YFCSRQ" jdbcType="VARCHAR"/>
+        <result property="yfsfz" column="YFSFZ" jdbcType="VARCHAR"/>
+        <result property="yfmz" column="YFMZ" jdbcType="VARCHAR"/>
+        <result property="yflxdh" column="YFLXDH" jdbcType="VARCHAR"/>
+        <result property="yfhjczlx" column="YFHJCZLX" jdbcType="VARCHAR"/>
+        <result property="yfhjd" column="YFHJD" jdbcType="VARCHAR"/>
+        <result property="yfxjddz" column="YFXJDDZ" jdbcType="VARCHAR"/>
+        <result property="nzxm" column="NZXM" jdbcType="VARCHAR"/>
+        <result property="nzcsrq" column="NZCSRQ" jdbcType="VARCHAR"/>
+        <result property="nzsfz" column="NZSFZ" jdbcType="VARCHAR"/>
+        <result property="nzmz" column="NZMZ" jdbcType="VARCHAR"/>
+        <result property="nzlxdh" column="NZLXDH" jdbcType="VARCHAR"/>
+        <result property="nzxjddz" column="NZXJDDZ" jdbcType="VARCHAR"/>
+        <result property="nzhjd" column="NZHJD" jdbcType="VARCHAR"/>
+        <result property="rsc" column="RSC" jdbcType="VARCHAR"/>
+        <result property="cc" column="CC" jdbcType="VARCHAR"/>
+        <result property="sfhy" column="SFHY" jdbcType="VARCHAR"/>
+        <result property="hyrq" column="HYRQ" jdbcType="VARCHAR"/>
+        <result property="ycq" column="YCQ" jdbcType="VARCHAR"/>
+        <result property="jcsj" column="JCSJ" jdbcType="VARCHAR"/>
+        <result property="ycbh" column="YCBH" jdbcType="VARCHAR"/>
+        <result property="jcff" column="JCFF" jdbcType="VARCHAR"/>
+        <result property="jcys" column="JCYS" jdbcType="VARCHAR"/>
+        <result property="jcrq" column="JCRQ" jdbcType="VARCHAR"/>
+        <result property="sffm" column="SFFM" jdbcType="VARCHAR"/>
+        <result property="fmrq" column="FMRQ" jdbcType="VARCHAR"/>
+        <result property="fmyy" column="FMYY" jdbcType="VARCHAR"/>
+        <result property="fmfs" column="FMFS" jdbcType="VARCHAR"/>
+        <result property="DataSource" column="DATASOURCE" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryZyzdList" resultMap="FuYouZyzdMap">
+        select
+            JCKH, YFXM, YFCSRQ, YFSFZ, YFMZ, YFLXDH, YFHJCZLX, YFHJD, YFXJDDZ, NZXM, NZCSRQ, NZSFZ, NZMZ, NZLXDH, NZXJDDZ, NZHJD, RSC, CC, SFHY, HYRQ, YCQ, JCSJ, YCBH, JCFF, JCYS, JCRQ, SFFM, FMRQ, FMYY, FMFS, DATASOURCE
+        from
+            DZBL.FUYOU_ZYZD
+    </select>
+
+</mapper>
