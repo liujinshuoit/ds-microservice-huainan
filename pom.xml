@@ -43,16 +43,6 @@
         <module>microservice-common</module>
         <!-- 淮南微服务（平台推送妇幼系统） -->
         <module>microservice-huainan</module>
-        <!-- 移动BI微服务（保定） -->
-        <module>microservice-mobilebi</module>
-        <!-- 阜新微服务 -->
-        <module>microservice-fuxin</module>
-        <!-- Readmine相关微服务 -->
-        <module>microservice-redmine</module>
-        <!-- MEC相关微服务 -->
-        <module>microservice-mec</module>
-        <!-- 项目监控平台 -->
-        <module>microservice-project-monitor</module>
     </modules>
 
     <!-- 子模块继承之后，提供作用：锁定版本+子modlue不用写groupId和version  -->
