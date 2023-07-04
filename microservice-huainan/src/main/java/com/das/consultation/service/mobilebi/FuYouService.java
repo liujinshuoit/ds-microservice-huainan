@@ -12,4 +12,6 @@ public interface FuYouService {
 
     List<FuYouZyzdVO> queryZyzdList();
 
+    int insertList(List<FuYouZyzdVO> fuYouZyzdVOList);
+
 }

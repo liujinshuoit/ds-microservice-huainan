@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @Author: LJS
  * @Date: 2022/1/26 15:44
@@ -12,6 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FuYouZyzdVO {
+    /**
+     * 自增主键
+     */
+    private int id;
+
     /**
      * 卡号（门诊记录编号|按照某一特定编码规则赋予门(急)诊就诊对象的顺序号|）
      */
@@ -166,6 +173,29 @@ public class FuYouZyzdVO {
      * 数据来源 1-WIS 2-达实
      */
     private String DataSource;
+
+    /**
+     * 推送时间
+     */
+    private Date SendTime;
+
+    /**
+     * 应答代码
+     */
+    private String ResponseCode;
+
+    /**
+     * 应答说明
+     */
+    private String ResponseMessage;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getJckh() {
         return jckh;
@@ -413,5 +443,29 @@ public class FuYouZyzdVO {
 
     public void setDataSource(String dataSource) {
         DataSource = dataSource;
+    }
+
+    public Date getSendTime() {
+        return SendTime;
+    }
+
+    public void setSendTime(Date sendTime) {
+        SendTime = sendTime;
+    }
+
+    public String getResponseCode() {
+        return ResponseCode;
+    }
+
+    public void setResponseCode(String responseCode) {
+        ResponseCode = responseCode;
+    }
+
+    public String getResponseMessage() {
+        return ResponseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        ResponseMessage = responseMessage;
     }
 }

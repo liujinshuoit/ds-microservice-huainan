@@ -21,6 +21,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -94,14 +96,17 @@ public class DataPushSchedule {
 
         /* 数据加密并推送 */
         for (int i=0; i<fuYouZyzdVOList.size(); i++) {
+            FuYouZyzdVO fuYouZyzdVO = fuYouZyzdVOList.get(i);
+            // 把对象中的 String 类型的null字段，转换为空字符串
+            noNullStringAttr(fuYouZyzdVO);
             long dataPushStart = System.currentTimeMillis();
-            String sfzh = fuYouZyzdVOList.get(i).getYfsfz();
+            String sfzh = fuYouZyzdVO.getYfsfz();
             // 数据组装
             FuYouZyzdDTO fuYouZyzdDTO = new FuYouZyzdDTO();
             FuYouZyzdAuthinfoBO fuYouZyzdAuthinfoBO = new FuYouZyzdAuthinfoBO();
             fuYouZyzdAuthinfoBO.setServiceID("100001");
             fuYouZyzdDTO.setAuthinfo(fuYouZyzdAuthinfoBO);
-            fuYouZyzdDTO.setDatainfo(fuYouZyzdVOList.get(i));
+            fuYouZyzdDTO.setDatainfo(fuYouZyzdVO);
             String fuYouZyzdStr = JSONObject.toJSONString(fuYouZyzdDTO, SerializerFeature.WriteMapNullValue);
             String fuYouZyzdEncryptStr;
             try {
@@ -153,6 +158,10 @@ public class DataPushSchedule {
                     logger.info("The {} data fail, sfzh: {}, returncode: {}, returnmessage: {}", i+1, sfzh, returncode, returnmessage);
                     pushFailCount++;
                 }
+                // 响应结果记录
+                fuYouZyzdVO.setResponseCode(returncode);
+                fuYouZyzdVO.setResponseMessage(returnmessage);
+                fuYouZyzdVO.setSendTime(new Date());
             } catch (Exception e) {
                 logger.error("The {} data decrypt fail, sfzh: {}", i+1, sfzh);
                 pushFailCount++;
@@ -163,11 +172,42 @@ public class DataPushSchedule {
             logger.info("The {} data sfzh: {}, push execute time: {}ms", i+1, sfzh, dataPushEnd - dataPushStart);
         }
 
+        /* 日志记录 */
+        fuYouService.insertList(fuYouZyzdVOList);
         /* 总时间记录 */
         long totalEnd = System.currentTimeMillis();
         logger.info(">>>>>>QueryCount: {}, Query execute time: {}ms;  PushSuccess: {}, PushFail: {}; Total execute time: {}ms", queryCount, (dataQueryEnd - dataQueryStart), pushSuccessCount, pushFailCount, (totalEnd - totalStart));
         /* 总结果记录 */
         logger.info("==========fertile woman diagnosis of early pregnancy message push end!!!");
     }
+
+    /**
+     * 把对象中的 String 类型的null字段，转换为空字符串
+     *
+     * @param <T> 待转化对象类型
+     * @param cls 待转化对象
+     * @return 转化好的对象
+     */
+    public static <T> T noNullStringAttr(T cls) {
+        Field[] fields = cls.getClass().getDeclaredFields();
+        if (fields == null || fields.length == 0) {
+            return cls;
+        }
+        for (Field field : fields) {
+            if ("String".equals(field.getType().getSimpleName())) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(cls);
+                    if (value == null) {
+                        field.set(cls, "");
+                    }
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return cls;
+    }
+
 
 }

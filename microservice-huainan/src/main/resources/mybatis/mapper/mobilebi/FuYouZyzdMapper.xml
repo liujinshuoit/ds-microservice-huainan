@@ -3,6 +3,7 @@
 <mapper namespace="com.das.consultation.mapper.mobilebi.FuYouZyzdMapper">
 
     <resultMap type="com.das.consultation.entities.vo.mobilebi.FuYouZyzdVO" id="FuYouZyzdMap">
+        <result property="id" column="ID" jdbcType="INTEGER"/>
         <result property="jckh" column="JCKH" jdbcType="VARCHAR"/>
         <result property="yfxm" column="YFXM" jdbcType="VARCHAR"/>
         <result property="yfcsrq" column="YFCSRQ" jdbcType="VARCHAR"/>
@@ -34,6 +35,9 @@
         <result property="fmyy" column="FMYY" jdbcType="VARCHAR"/>
         <result property="fmfs" column="FMFS" jdbcType="VARCHAR"/>
         <result property="DataSource" column="DATASOURCE" jdbcType="VARCHAR"/>
+        <result property="ResponseCode" column="RESPONSECODE" jdbcType="VARCHAR"/>
+        <result property="ResponseMessage" column="RESPONSEMESSAGE" jdbcType="VARCHAR"/>
+        <result property="SendTime" column="SENDTIME" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="queryZyzdList" resultMap="FuYouZyzdMap">
@@ -42,5 +46,87 @@
         from
             DZBL.FUYOU_ZYZD
     </select>
+
+    <insert id = "insertList" parameterType ="java.util.List">
+        INSERT INTO WISWOMEN_SENDLOG (
+            ID,
+            JCKH,
+            YFXM,
+            YFCSRQ,
+            YFSFZ,
+            YFMZ,
+            YFLXDH,
+            YFHJCZLX,
+            YFHJD,
+            YFXJDDZ,
+            NZXM,
+            NZCSRQ,
+            NZSFZ,
+            NZMZ,
+            NZLXDH,
+            NZXJDDZ,
+            NZHJD,
+            RSC,
+            CC,
+            SFHY,
+            HYRQ,
+            YCQ,
+            JCSJ,
+            YCBH,
+            JCFF,
+            JCYS,
+            JCRQ,
+            SFFM,
+            FMRQ,
+            FMYY,
+            FMFS,
+            DATASOURCE,
+            RESPONSECODE,
+            RESPONSEMESSAGE,
+            SENDTIME
+            )
+        SELECT SEQ_FuYouList.nextval,s.* FROM
+        (
+            <foreach collection="fuYouZyzdVOList"  item="item" separator="union all" >
+                select
+                #{item.jckh},
+                #{item.yfxm},
+                #{item.yfcsrq},
+                #{item.yfsfz},
+                #{item.yfmz},
+                #{item.yflxdh},
+                #{item.yfhjczlx},
+                #{item.yfhjd},
+                #{item.yfxjddz},
+                #{item.nzxm},
+                #{item.nzcsrq},
+                #{item.nzsfz},
+                #{item.nzmz},
+                #{item.nzlxdh},
+                #{item.nzxjddz},
+                #{item.nzhjd},
+                #{item.rsc},
+                #{item.cc},
+                #{item.sfhy},
+                #{item.hyrq},
+                #{item.ycq},
+                #{item.jcsj},
+                #{item.ycbh},
+                #{item.jcff},
+                #{item.jcys},
+                #{item.jcrq},
+                #{item.sffm},
+                #{item.fmrq},
+                #{item.fmyy},
+                #{item.fmfs},
+                #{item.DataSource},
+                #{item.ResponseCode},
+                #{item.ResponseMessage},
+                #{item.SendTime}
+                from
+                dual
+            </foreach>
+        ) s
+    </insert>
 
 </mapper>

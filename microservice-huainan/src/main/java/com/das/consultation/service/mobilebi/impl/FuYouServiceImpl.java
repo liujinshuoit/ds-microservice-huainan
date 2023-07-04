@@ -20,7 +20,11 @@ public class FuYouServiceImpl implements FuYouService {
 
     @Override
     public List<FuYouZyzdVO> queryZyzdList() {
-        List<FuYouZyzdVO> fuYouZyzdVOList = fuYouZyzdMapper.queryZyzdList();
-        return fuYouZyzdVOList;
+        return fuYouZyzdMapper.queryZyzdList();
+    }
+
+    @Override
+    public int insertList(List<FuYouZyzdVO> fuYouZyzdVOList) {
+        return fuYouZyzdMapper.insertList(fuYouZyzdVOList);
     }
 }
